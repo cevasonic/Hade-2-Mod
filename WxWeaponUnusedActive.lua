@@ -1,4 +1,4 @@
--- @Mod Thanh Binh Nguyen
+-- Mod này để chọn vũ khí
 function GetRandomUnequippedWeapon( prevRun )
     local candidateWeapons = {}
     
