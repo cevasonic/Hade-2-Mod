@@ -1,4 +1,4 @@
--- @Mod Thanh Binh
+-- @Mod Thanh Binh Nguyen
 function GetRandomUnequippedWeapon( prevRun )
     local candidateWeapons = {}
     
