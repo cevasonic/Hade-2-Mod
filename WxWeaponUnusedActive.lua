@@ -1,4 +1,4 @@
--- Mod này để chọn vũ khí
+-- Mod này để luôn set vũ khí đang chơi sẽ là vũ khí active lượt tới
 function GetRandomUnequippedWeapon( prevRun )
     local candidateWeapons = {}
     
@@ -28,7 +28,6 @@ function GetRandomUnequippedWeapon( prevRun )
     end
 end
 
--- @Mod Thanh Binh
 function RecordRunStats()
     CurrentRun.RunResult = GetRunResult( CurrentRun )
     CurrentRun.EndingRoomName = CurrentRun.CurrentRoom.Name
