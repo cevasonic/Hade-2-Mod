@@ -1124,7 +1124,6 @@ function UpdateWeaponKits( args )
 end
 
 function SetWeaponKitUseText( weaponKit )
-	
 	if CurrentRun.Hero.Weapons[weaponKit.Name] ~= nil then
 		-- Equipped
 		if HasAnyAspectUnlocked( weaponKit.Name ) then

@@ -832,59 +832,24 @@ end
 
 function IsBonusUnusedWeapon( weaponName )
 	if GameState.WorldUpgrades.WorldUpgradeUnusedWeaponBonus and weaponName == CurrentRun.BonusUnusedWeaponName then
-		
 		return true
 	end
 	return false
 end
 
--- function GetRandomUnequippedWeapon( prevRun )
--- 	local unusedWeapons = {}
--- 	local hasWeaponEquipped = HasMeleeWeapon( CurrentRun )
--- 	local weaponName = ""-- 	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
--- 		if prevRun ~= nil and weaponName ~= prevRun.BonusUnusedWeaponName then
--- 			if ( not hasWeaponEquipped and weaponName ~= CurrentRun.Hero.DefaultWeapon) or (hasWeaponEquipped and CurrentRun.Hero.Weapons[weaponName] == nil and IsWeaponEligible(CurrentRun, WeaponData[weaponName])) then
--- 				table.insert(unusedWeapons, weaponName)
--- 			end
--- 		end
--- 	end
-	
-
--- 	return GetRandomValue(unusedWeapons)
--- end
-
--- @Mod Thanh Binh
 function GetRandomUnequippedWeapon( prevRun )
-    local candidateWeapons = {}
-    
-    -- 1. Kiểm tra an toàn: Nếu chưa có lượt chơi trước, chọn đại một vũ khí chính
-    if prevRun == nil or prevRun.WeaponsCache == nil then
-        return GetRandomValue( WeaponSets.HeroPrimaryWeapons )
-    end
-
-    -- 2. Duyệt qua danh sách vũ khí chính để tìm vũ khí đã dùng lần trước
-    for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
-        -- Kiểm tra xem tên vũ khí này có trong Cache của lần chơi trước không
-        if prevRun.WeaponsCache[weaponName] then
-            -- Kiểm tra xem vũ khí này có hợp lệ để nhận Bonus không
-            if IsWeaponEligible( CurrentRun, WeaponData[weaponName] ) then
-                table.insert(candidateWeapons, weaponName)
-            end
-        end
-    end
-
-    -- 3. Trả về kết quả
-    if not IsEmpty(candidateWeapons) then
-        -- Trả về vũ khí đã chơi (nếu có nhiều hơn 1, ví dụ do lỗi cache, sẽ chọn ngẫu nhiên)
-        return GetRandomValue(candidateWeapons)
-    else
-        -- Fallback: Nếu không tìm thấy vũ khí cũ trong Cache, chọn ngẫu nhiên để tránh lỗi game
-        return GetRandomValue( WeaponSets.HeroPrimaryWeapons )
-    end
+	local unusedWeapons = {}
+	local hasWeaponEquipped = HasMeleeWeapon( CurrentRun )
+	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
+		if prevRun ~= nil and weaponName ~= prevRun.BonusUnusedWeaponName then
+			if ( not hasWeaponEquipped and weaponName ~= CurrentRun.Hero.DefaultWeapon) or (hasWeaponEquipped and CurrentRun.Hero.Weapons[weaponName] == nil and IsWeaponEligible(CurrentRun, WeaponData[weaponName])) then
+				table.insert(unusedWeapons, weaponName)
+			end
+		end
+	end
+	return GetRandomValue(unusedWeapons)
 end
 
-
--- @Mod Thanh Binh
 function IsWeaponUntouched( weaponName )
 	return GameState.WeaponsTouched[weaponName] == nil
 end

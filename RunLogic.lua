@@ -2030,16 +2030,6 @@ function RecordRunStats()
 			GameState.LastBossDifficultyRecord[bossName] = true
 		end
 	end
-
-	-- Trong hàm RecordRunStats
-	CurrentRun.WeaponsCache = DeepCopyTable( CurrentRun.Hero.Weapons )
-	-- Ép game nhận diện vũ khí này là Unused cho lượt sau ngay lập tức
-	for weaponName, v in pairs(CurrentRun.WeaponsCache) do
-	    if IsWeaponEligible(CurrentRun, WeaponData[weaponName]) then
-	        CurrentRun.BonusUnusedWeaponName = weaponName
-	        break
-	    end
-	end
 end
 
 function RecordRunCleared()

@@ -102,6 +102,11 @@ Import "HubPresentation.lua"
 Import "FlashbackPresentation.lua"
 Import "TradePresentation.lua"
 
+
+-- Mod
+
+Import "WxWeaponUnusedActive.lua"
+
 -- Iris
 
 RoomThreadName = "RoomThread"
