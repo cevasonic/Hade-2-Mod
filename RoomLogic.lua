@@ -4130,6 +4130,11 @@ function CheckExitPreUnlock( door, args, doorIndex )
 end
 
 function LeaveRoom( currentRun, door )
+	-- Gọi hàm thưởng tiền ngẫu nhiên khi thoát Room
+	if GrantRandomGoldOnRoomExit ~= nil then
+    	GrantRandomGoldOnRoomExit( currentRun, door )
+	end
+
 	CurrentRun.CurrentRoom.Leaving = true
 	local nextRoom = door.Room
 	local currentRoomData = RoomData[CurrentRun.CurrentRoom.Name]
