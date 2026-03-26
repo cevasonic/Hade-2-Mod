@@ -106,6 +106,7 @@ Import "TradePresentation.lua"
 -- Mod
 
 Import "WxWeaponUnusedActive.lua"
+Import "WxLeaveRoomGetGold.lua"
 
 -- Iris
 
@@ -761,6 +762,9 @@ function AttemptUseDoor( door, args )
 			thread( CannotUseDoorPresentation, door )
 			return
 		elseif not door.EncounterCostStarted then
+
+
+
 			door.EncounterCostStarted = true
 
 			if door.OnUsedEncounterCostPresentationFunctionName ~= nil then
@@ -4130,11 +4134,19 @@ function CheckExitPreUnlock( door, args, doorIndex )
 end
 
 function LeaveRoom( currentRun, door )
-	
 
 	CurrentRun.CurrentRoom.Leaving = true
 	local nextRoom = door.Room
 	local currentRoomData = RoomData[CurrentRun.CurrentRoom.Name]
+
+	-- Gọi hàm thưởng tiền ngẫu nhiên khi thoát Room
+	if GrantRandomGoldOnRoomExit ~= nil then
+		GrantRandomGoldOnRoomExit( currentRun, door )
+	else
+		thread( InCombatText, CurrentRun.Hero.ObjectId, "DOOM", 2, { ShadowScaleX = 1.5 } )
+	end
+
+
 	if CurrentRun.CurrentRoom.TempHealth then
 		Damage( CurrentRun.Hero, { SourceWeapon = "TempHealth", DamageAmount = CurrentRun.CurrentRoom.TempHealth, MinHealth = 1, PureDamage = true, Silent = true } )
 	end

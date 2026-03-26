@@ -402,10 +402,7 @@ end
 function UseEscapeDoor( usee, args )
 	AddInputBlock({ Name = "UseEscapeDoor" })
 
-	-- Gọi hàm thưởng tiền ngẫu nhiên khi thoát Room
-	if GrantRandomGoldOnRoomExit ~= nil then
-    	GrantRandomGoldOnRoomExit( currentRun, door )
-	end
+	
 
 	if args.MarkObjectiveComplete ~= nil then
 		MarkObjectiveComplete( args.MarkObjectiveComplete )
