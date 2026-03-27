@@ -27,15 +27,15 @@ function GrantRandomGoldOnRoomExit(currentRun, door)
     -- 2. Dùng thread để đảm bảo Text hiện lên không làm gián đoạn logic chuyển cảnh
     -- thread( InCombatText, CurrentRun.Hero.ObjectId,"+" .. goldAmount .. " Gold", 2, { ShadowScaleX = 1.5 } )
 
-    MoneyGainPresentation(goldAmount)
-
     -- thread( PopOverheadText, {
     --     TargetId = CurrentRun.Hero.ObjectId,
     --     Amount = goldAmount,
-    --     Text = "NegativeMoneyAmount",         -- Sử dụng mã văn bản đã được định cấu hình có icon [1]
-    --     Color = Color.Gold,           -- Màu sắc cho văn bản [3]
+    --     Text = "{#UseMoneyFormat}+{$TempTextData.Amount}{!Icons.Currency}",         -- Sử dụng mã văn bản đã được định cấu hình có icon [1]
     --     Duration = 2.0,               -- Thời gian hiển thị
     -- })
+    -- UpdateMoneyUI( true )
+    local nextMoney =  GetResourceAmount( "Money" ) or 0 + goldAmount
+    MoneyGainPresentation(nextMoney,goldAmount)
     
 
 end
